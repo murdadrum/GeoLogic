@@ -73,8 +73,8 @@ export function PurgeButton() {
             disabled={purging}
             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 purging
-                    ? "bg-red-300 text-white cursor-not-allowed"
-                    : "bg-red-600 hover:bg-red-700 text-white"
+                    ? "bg-[var(--muted)] text-[var(--primary)] cursor-not-allowed"
+                    : "bg-[var(--destructive)] hover:opacity-90 text-white"
             }`}
         >
             {purging ? "Purging..." : "Purge"}

@@ -243,16 +243,16 @@ export default function PoliciesPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Policy Management</h2>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <h2 className="text-2xl font-bold text-[var(--primary)]">Policy Management</h2>
+                <div className="text-sm text-[var(--primary)]/70">
                     Define access rules in JSON format.
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-4">
-                    <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 p-6 rounded-lg shadow-sm border border-indigo-100 dark:border-indigo-800">
-                        <h3 className="text-sm font-semibold text-indigo-900 dark:text-indigo-300 mb-2 flex items-center gap-2">
+                    <div className="bg-gradient-to-r from-[var(--secondary)] to-[var(--accent)]/50 p-6 rounded-lg shadow-sm border border-[var(--muted)]/80">
+                        <h3 className="text-sm font-semibold text-[var(--primary)] mb-2 flex items-center gap-2">
                             ✨ Generate Policy with AI
                         </h3>
                         <div className="flex gap-2">
@@ -261,13 +261,13 @@ export default function PoliciesPage() {
                                 value={prompt}
                                 onChange={(e) => setPrompt(e.target.value)}
                                 placeholder="e.g. Allow US and Canada, block VPNs, require high accuracy."
-                                className="flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-base border p-3"
+                                className="flex-1 bg-[var(--surface-strong)] text-[var(--primary)] placeholder:text-[var(--primary)]/50 border-[var(--muted)] rounded-md shadow-sm focus:ring-[var(--accent)] focus:border-[var(--accent)] sm:text-base border p-3"
                             />
                             <button
                                 onClick={handleGenerate}
                                 disabled={generating || !prompt}
                                 className={`px-4 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white ${
-                                    generating ? 'bg-indigo-300 dark:bg-indigo-600' : 'bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600'
+                                    generating ? 'bg-[var(--muted)] text-[var(--primary)]' : 'bg-[var(--primary)] hover:opacity-90'
                                 }`}
                             >
                                 {generating ? '...' : 'Go'}
@@ -275,47 +275,47 @@ export default function PoliciesPage() {
                         </div>
                     </div>
 
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div className="bg-[var(--surface)] p-6 rounded-lg shadow-sm border border-[var(--muted)]/80">
                         <div className="mb-4 flex gap-4">
                             <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Policy Version</label>
+                                <label className="block text-sm font-medium text-[var(--primary)]/90 mb-1">Policy Version</label>
                                 <input
                                     type="text"
                                     value={version}
                                     onChange={(e) => setVersion(e.target.value)}
-                                    className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-base border p-3"
+                                    className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md shadow-sm focus:ring-[var(--accent)] focus:border-[var(--accent)] sm:text-base border p-3"
                                     placeholder="2026-02-09.1"
                                 />
                             </div>
                         </div>
 
-                        <div className="mb-6 border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-4">
-                            <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Decision Controls</h4>
+                        <div className="mb-6 border border-[var(--muted)]/80 rounded-lg p-4 space-y-4">
+                            <h4 className="text-sm font-semibold text-[var(--primary)]">Decision Controls</h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Allowed Countries (CSV)</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">Allowed Countries (CSV)</label>
                                     <input
                                         type="text"
                                         disabled={!policyForControls}
                                         value={policyForControls ? policyForControls.allowed_countries.join(', ') : ''}
                                         onChange={(e) => updatePolicy((current) => ({ ...current, allowed_countries: parseCountryInput(e.target.value) }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                         placeholder="US, CA"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Denied Countries (CSV)</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">Denied Countries (CSV)</label>
                                     <input
                                         type="text"
                                         disabled={!policyForControls}
                                         value={policyForControls ? policyForControls.denied_countries.join(', ') : ''}
                                         onChange={(e) => updatePolicy((current) => ({ ...current, denied_countries: parseCountryInput(e.target.value) }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                         placeholder="GB, RU"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">VPN Handling</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">VPN Handling</label>
                                     <select
                                         disabled={!policyForControls}
                                         value={policyForControls ? policyForControls.vpn_handling.mode : 'STEP_UP'}
@@ -323,7 +323,7 @@ export default function PoliciesPage() {
                                             ...current,
                                             vpn_handling: { ...current.vpn_handling, mode: e.target.value as VpnMode },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     >
                                         <option value="ALLOW">ALLOW</option>
                                         <option value="STEP_UP">STEP_UP</option>
@@ -331,7 +331,7 @@ export default function PoliciesPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">GPS Max Accuracy (m)</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">GPS Max Accuracy (m)</label>
                                     <input
                                         type="number"
                                         min={0}
@@ -341,11 +341,11 @@ export default function PoliciesPage() {
                                             ...current,
                                             gps_rules: { ...current.gps_rules, max_accuracy_m: Number(e.target.value) },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">GPS Max Age (seconds)</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">GPS Max Age (seconds)</label>
                                     <input
                                         type="number"
                                         min={0}
@@ -355,14 +355,14 @@ export default function PoliciesPage() {
                                             ...current,
                                             gps_rules: { ...current.gps_rules, max_age_seconds: Number(e.target.value) },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Score: ALLOW</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">Score: ALLOW</label>
                                     <input
                                         type="number"
                                         step="0.01"
@@ -374,11 +374,11 @@ export default function PoliciesPage() {
                                             ...current,
                                             decision_scores: { ...current.decision_scores, ALLOW: Number(e.target.value) },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Score: STEP_UP</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">Score: STEP_UP</label>
                                     <input
                                         type="number"
                                         step="0.01"
@@ -390,11 +390,11 @@ export default function PoliciesPage() {
                                             ...current,
                                             decision_scores: { ...current.decision_scores, STEP_UP: Number(e.target.value) },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Score: DENY</label>
+                                    <label className="block text-xs font-medium text-[var(--primary)]/70 mb-1">Score: DENY</label>
                                     <input
                                         type="number"
                                         step="0.01"
@@ -406,7 +406,7 @@ export default function PoliciesPage() {
                                             ...current,
                                             decision_scores: { ...current.decision_scores, DENY: Number(e.target.value) },
                                         }))}
-                                        className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md border p-2"
+                                        className="w-full bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md border p-2"
                                     />
                                 </div>
                             </div>
@@ -416,12 +416,12 @@ export default function PoliciesPage() {
                             )}
                         </div>
 
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Policy JSON</label>
+                        <label className="block text-sm font-medium text-[var(--primary)]/90 mb-1">Policy JSON</label>
                         <textarea
                             value={jsonContent}
                             onChange={(e) => setJsonContent(e.target.value)}
                             rows={15}
-                            className="w-full font-mono text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border p-3"
+                            className="w-full font-mono text-base bg-[var(--surface-strong)] text-[var(--primary)] border-[var(--muted)] rounded-md shadow-sm focus:ring-[var(--accent)] focus:border-[var(--accent)] border p-3"
                         />
 
                         <div className="mt-4 flex items-center justify-between">
@@ -434,7 +434,7 @@ export default function PoliciesPage() {
                                 onClick={handleSave}
                                 disabled={saving}
                                 className={`ml-auto px-4 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white ${
-                                    saving ? 'bg-indigo-400 dark:bg-indigo-600' : 'bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600'
+                                    saving ? 'bg-[var(--muted)] text-[var(--primary)]' : 'bg-[var(--primary)] hover:opacity-90'
                                 }`}
                             >
                                 {saving ? 'Saving...' : 'Save & Activate Policy'}
@@ -444,18 +444,18 @@ export default function PoliciesPage() {
                 </div>
 
                 <div className="lg:col-span-1">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">History</h3>
+                    <div className="bg-[var(--surface)] p-6 rounded-lg shadow-sm border border-[var(--muted)]/80">
+                        <h3 className="text-lg font-medium text-[var(--primary)] mb-4">History</h3>
                         {loading ? (
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">Loading...</p>
+                            <p className="text-[var(--primary)]/70 text-sm">Loading...</p>
                         ) : (
                             <ul className="space-y-3">
                                 {policies.map((policy) => (
-                                    <li key={policy.id} className="border-b border-gray-200 dark:border-gray-700 pb-2 last:border-0 last:pb-0">
+                                    <li key={policy.id} className="border-b border-[var(--muted)]/80 pb-2 last:border-0 last:pb-0">
                                         <div className="flex justify-between items-start">
                                             <div>
-                                                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{policy.version}</p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(policy.created_at).toLocaleString()}</p>
+                                                <p className="text-sm font-medium text-[var(--primary)]">{policy.version}</p>
+                                                <p className="text-xs text-[var(--primary)]/70">{new Date(policy.created_at).toLocaleString()}</p>
                                             </div>
                                             {policy.active && (
                                                 <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
@@ -466,7 +466,7 @@ export default function PoliciesPage() {
                                     </li>
                                 ))}
                                 {policies.length === 0 && (
-                                    <p className="text-gray-500 dark:text-gray-400 text-sm">No policies found.</p>
+                                    <p className="text-[var(--primary)]/70 text-sm">No policies found.</p>
                                 )}
                             </ul>
                         )}

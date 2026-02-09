@@ -3,8 +3,18 @@
 import { useState, useEffect } from 'react';
 import { buildApiUrl } from '@/lib/api';
 
+interface AuditLogItem {
+    attestation_id: string;
+    timestamp: string | null;
+    decision: string;
+    resource_id: string;
+    reason_codes?: string[];
+    gps_lat?: number;
+    gps_lon?: number;
+}
+
 export default function AuditPage() {
-    const [logs, setLogs] = useState<any[]>([]);
+    const [logs, setLogs] = useState<AuditLogItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -33,24 +43,24 @@ export default function AuditPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Audit Logs</h2>
+                <h2 className="text-2xl font-bold text-[var(--primary)]">Audit Logs</h2>
                 <button
                     onClick={fetchLogs}
-                    className="px-3 py-2 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200"
+                    className="px-3 py-2 text-sm bg-[var(--surface)] border border-[var(--muted)] rounded-md hover:bg-[var(--accent)]/40 text-[var(--primary)]"
                 >
                     Refresh
                 </button>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div className="bg-[var(--surface)] rounded-lg shadow overflow-hidden border border-[var(--muted)]/80">
                 {error && (
-                    <div className="px-6 py-3 text-sm text-red-600 dark:text-red-400 border-b border-gray-200 dark:border-gray-700">
+                    <div className="px-6 py-3 text-sm text-[var(--destructive)] border-b border-[var(--muted)]/80">
                         {error}
                     </div>
                 )}
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead className="bg-gray-50 dark:bg-gray-700">
+                        <thead className="bg-gray-50 ">
                             <tr>
                                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Timestamp
@@ -72,23 +82,23 @@ export default function AuditPage() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody className="bg-white  divide-y divide-gray-200 dark:divide-gray-700">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    <td colSpan={6} className="px-6 py-4 text-center text-sm text-[var(--primary)]/70">
                                         Loading logs...
                                     </td>
                                 </tr>
                             ) : logs.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    <td colSpan={6} className="px-6 py-4 text-center text-sm text-[var(--primary)]/70">
                                         No logs found.
                                     </td>
                                 </tr>
                             ) : (
                                 logs.map((log) => (
                                     <tr key={log.attestation_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--primary)]/70">
                                             {log.timestamp ? new Date(log.timestamp).toLocaleString() : '-'}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -99,14 +109,14 @@ export default function AuditPage() {
                                                 {log.decision}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--primary)]">
                                             {log.resource_id}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--primary)]/70">
                                             {log.reason_codes && log.reason_codes.length > 0 ? (
                                                 <div className="flex flex-wrap gap-1">
                                                     {log.reason_codes.map((code: string) => (
-                                                        <span key={code} className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded text-xs border border-gray-200 dark:border-gray-600">
+                                                        <span key={code} className="bg-gray-100  text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded text-xs border border-gray-200 dark:border-gray-600">
                                                             {code}
                                                         </span>
                                                     ))}
@@ -115,7 +125,7 @@ export default function AuditPage() {
                                                 <span className="text-gray-400 dark:text-gray-500">Low</span>
                                             )}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--primary)]/70">
                                             {log.gps_lat && log.gps_lon ? (
                                                 `${log.gps_lat.toFixed(4)}, ${log.gps_lon.toFixed(4)}`
                                             ) : (
