@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from services.llm import llm_service
 from typing import Dict, Any
@@ -14,9 +14,15 @@ class PolicyResponse(BaseModel):
 
 @router.post("/policies/generate", response_model=PolicyResponse)
 def generate_policy(request: PromptRequest):
-    policy = llm_service.generate_policy(request.prompt)
+    try:
+        policy = llm_service.generate_policy(request.prompt)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     
     # Simple summary for now, could also use LLM to summarize
-    summary = f"Generated policy allowing {policy.get('allowed_countries', [])}."
+    summary = (
+        f"Generated policy allowing {policy.get('allowed_countries', [])} "
+        f"and denying {policy.get('denied_countries', [])}."
+    )
     
     return PolicyResponse(policy=policy, summary=summary)

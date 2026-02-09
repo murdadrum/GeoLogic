@@ -1,15 +1,15 @@
-# GeoLogic (AccessGate AI)
+# GeoLogic
 
 **Policy-driven location attestation (IP vs GPS) + VPN/proxy detection + explainable decisions + audit + monitoring**
 
-This project ("AccessGate AI") is a modern location attestation system that goes beyond simple IP vs GPS matching. It implements a risk-scoring and policy engine to validate user locations for protected resources, detecting VPNs, proxies, and spoofing attempts.
+This project ("GeoLogic") is a modern location attestation system that goes beyond simple IP vs GPS matching. It implements a risk-scoring and policy engine to validate user locations for protected resources, detecting VPNs, proxies, and spoofing attempts.
 
 ## Architecture
 
 - **Frontend**: Next.js (TypeScript), Tailwind, ShadCN UI, Dark Mode
 - **Backend**: FastAPI (Python), Pydantic, SQLAlchemy
 - **Database**: PostgreSQL (via Docker)
-- **AI**: OpenAI GPT (with Mock fallback)
+- **AI**: OpenAI GPT
 - **Infrastructure**: Docker Compose
 
 ## Features
@@ -27,7 +27,7 @@ This project ("AccessGate AI") is a modern location attestation system that goes
 - [Docker](https://www.docker.com/) & Docker Compose
 - [Node.js](https://nodejs.org/) (v18+)
 - [Python](https://www.python.org/) (v3.11+)
-- (Optional) OpenAI API Key
+- OpenAI API Key
 
 ## Getting Started
 
@@ -37,7 +37,7 @@ This project ("AccessGate AI") is a modern location attestation system that goes
 ```bash
 cd apps/api
 cp .env.example .env
-# Edit .env and add your OPENAI_API_KEY (optional - uses Mock LLM if not provided)
+# Edit .env and add your OPENAI_API_KEY (required)
 ```
 
 **Frontend**:
@@ -124,12 +124,11 @@ GeoLogic/
 
 ## API Keys & Services
 
-### Required (None!)
+### Required
 - ✅ **GPS**: Uses browser's built-in `navigator.geolocation` API (no key needed)
-- ✅ **Mock LLM**: Built-in fallback for AI features (no key needed)
+- 🔑 **OpenAI**: Required for policy generation and explanation
 
 ### Optional
-- 🔑 **OpenAI**: For real AI policy generation ($5-20/month for low usage)
 - 🔑 **IPinfo**: For IP-based geolocation in production (50k free/month)
 - 🔑 **VPNapi**: For VPN detection (1k free/day)
 

@@ -2,7 +2,7 @@
 # OpenAI API Key Setup Guide
 
 echo "========================================="
-echo "OpenAI API Key Setup for AccessGate AI"
+echo "OpenAI API Key Setup for GeoLogic"
 echo "========================================="
 echo ""
 echo "📋 Step 1: Get your OpenAI API Key"

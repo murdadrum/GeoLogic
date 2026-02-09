@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AccessGate AI",
+  title: "GeoLogic",
   description: "Policy-driven location attestation system",
 };
 

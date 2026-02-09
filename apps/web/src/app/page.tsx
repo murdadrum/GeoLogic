@@ -1,5 +1,6 @@
 import AttestationWidget from "@/components/attestation-widget";
 import { ModeToggle } from "@/components/mode-toggle";
+import { PurgeButton } from "@/components/purge-button";
 
 export default function Home() {
     return (
@@ -7,9 +8,12 @@ export default function Home() {
             <main className="w-full max-w-lg">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100">
-                        AccessGate<span className="text-indigo-600 dark:text-indigo-400">AI</span>
+                        GeoLogic
                     </h1>
-                    <ModeToggle />
+                    <div className="flex items-center gap-2">
+                        <PurgeButton />
+                        <ModeToggle />
+                    </div>
                 </div>
                 <AttestationWidget />
             </main>

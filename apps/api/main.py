@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="AccessGate AI API", version="0.1.0")
+app = FastAPI(title="GeoLogic API", version="0.1.0")
 
 # Configure CORS - MUST be before importing routers
 app.add_middleware(
@@ -26,4 +26,4 @@ app.include_router(ai.router, prefix="/v1/ai", tags=["ai"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to AccessGate AI API"}
+    return {"message": "Welcome to GeoLogic API"}

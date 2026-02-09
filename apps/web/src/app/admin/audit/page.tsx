@@ -1,23 +1,29 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { buildApiUrl } from '@/lib/api';
 
 export default function AuditPage() {
     const [logs, setLogs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         fetchLogs();
     }, []);
 
     const fetchLogs = async () => {
+        setError(null);
         try {
-            const res = await fetch('http://localhost:8000/v1/admin/audit?limit=50');
+            const res = await fetch(buildApiUrl('/v1/admin/audit?limit=50'));
             if (res.ok) {
                 const data = await res.json();
                 setLogs(data);
+            } else {
+                setError(`Error loading logs (${res.status})`);
             }
         } catch (err) {
+            setError('Network error: backend is unreachable');
             console.error("Failed to fetch logs", err);
         } finally {
             setLoading(false);
@@ -37,6 +43,11 @@ export default function AuditPage() {
             </div>
 
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden border border-gray-200 dark:border-gray-700">
+                {error && (
+                    <div className="px-6 py-3 text-sm text-red-600 dark:text-red-400 border-b border-gray-200 dark:border-gray-700">
+                        {error}
+                    </div>
+                )}
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead className="bg-gray-50 dark:bg-gray-700">

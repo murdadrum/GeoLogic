@@ -1,4 +1,4 @@
-# AccessGate AI - Project Summary
+# GeoLogic - Project Summary
 
 ## One-Liner
 *"Full-stack location attestation system with AI-powered policy generation, built with Next.js, FastAPI, and PostgreSQL."*

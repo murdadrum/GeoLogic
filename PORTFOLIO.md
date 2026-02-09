@@ -1,8 +1,8 @@
-# AccessGate AI - Portfolio Showcase Guide
+# GeoLogic - Portfolio Showcase Guide
 
 ## Project Overview
 
-**AccessGate AI** is a full-stack location attestation system that demonstrates modern web development practices, AI integration, and security-focused architecture. Built as a portfolio piece to showcase technical breadth and depth.
+**GeoLogic** is a full-stack location attestation system that demonstrates modern web development practices, AI integration, and security-focused architecture. Built as a portfolio piece to showcase technical breadth and depth.
 
 ---
 
@@ -79,7 +79,7 @@
 ## 💼 Portfolio Talking Points
 
 ### Problem Statement
-*"Traditional location verification relies on IP geolocation alone, which is easily spoofed with VPNs. AccessGate AI combines GPS, IP, and behavioral signals with a policy engine to make intelligent access decisions."*
+*"Traditional location verification relies on IP geolocation alone, which is easily spoofed with VPNs. GeoLogic combines GPS, IP, and behavioral signals with a policy engine to make intelligent access decisions."*
 
 ### Technical Challenges Solved
 1. **Browser Geolocation API**: Handling permissions, timeouts, and accuracy variations
@@ -197,7 +197,7 @@ cd apps/api && railway up
 
 ### GitHub README
 ```markdown
-## AccessGate AI
+## GeoLogic
 
 A full-stack location attestation system with AI-powered policy generation.
 
@@ -214,7 +214,7 @@ A full-stack location attestation system with AI-powered policy generation.
 
 ### LinkedIn Post
 ```
-🚀 Just shipped AccessGate AI - a full-stack location attestation system!
+🚀 Just shipped GeoLogic - a full-stack location attestation system!
 
 Built with Next.js, FastAPI, and PostgreSQL, it demonstrates:
 ✅ AI/LLM integration (OpenAI GPT)
