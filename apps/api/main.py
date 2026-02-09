@@ -1,23 +1,23 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.v1 import attestations
 
 app = FastAPI(title="AccessGate AI API", version="0.1.0")
 
-# Configure CORS
-origins = [
-    "http://localhost:3000",
-    "http://localhost:8000",
-]
-
+# Configure CORS - MUST be before importing routers
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Import routers AFTER CORS middleware
 from api.v1 import attestations, admin, ai
 
 app.include_router(attestations.router, prefix="/v1", tags=["attestations"])

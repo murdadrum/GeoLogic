@@ -14,10 +14,13 @@ class PolicyResponse(BaseModel):
     version: str
     content: Dict[str, Any]
     active: bool
-    created_at: str
+    created_at: Any  # Accept datetime, will be serialized to string
 
     class Config:
         from_attributes = True
+        json_encoders = {
+            'datetime': lambda v: v.isoformat() if v else None
+        }
 
 class PolicyCreate(BaseModel):
     version: str
@@ -42,7 +45,7 @@ def create_policy(policy: PolicyCreate, db: Session = Depends(get_db)):
 
 class AuditLogResponse(BaseModel):
     attestation_id: str
-    timestamp: Optional[str] = None
+    timestamp: Optional[Any] = None  # Accept datetime, will be serialized
     decision: str
     resource_id: str
     reason_codes: Optional[List[str]] = None
@@ -52,6 +55,9 @@ class AuditLogResponse(BaseModel):
     
     class Config:
         from_attributes = True
+        json_encoders = {
+            'datetime': lambda v: v.isoformat() if v else None
+        }
 
 @router.get("/audit", response_model=List[AuditLogResponse])
 def get_audit_logs(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
